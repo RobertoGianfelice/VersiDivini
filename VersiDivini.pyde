@@ -21,8 +21,8 @@ def creaImg():
     
     #Leggo il primo carattere (da saltare)
     data1 = input.read()
-    c=0
-    while (data1 != -1 and c<LarghezzaImg*AltezzaImg):    
+    pixel=0
+    while (data1 != -1 and pixel<LarghezzaImg*AltezzaImg):    
         #Leggo il primo carattere
         data1 = input.read()     
         if data1 != -1:
@@ -35,14 +35,18 @@ def creaImg():
         #Creo il pixel        
         if (patchwork) :
             for i in range(100):
+                #per 100 righe immagine
                 for j in range(100):
-                      img.pixels[c+j+LarghezzaImg*i]=color(data1,data2,data3)
-            c=c+100
-            if (c%LarghezzaImg==0):
-                c=c+LarghezzaImg*99
+                    #per 100 colonne immagine
+                    img.pixels[pixel+j+(LarghezzaImg*i)]=color(data1,data2,data3)
+            pixel=pixel+100
+            if (pixel%LarghezzaImg==0):
+                #se ho finito una riga di patchwork, il prossimo quadrato va posizionato sotto le 100 righe pixel
+                pixel=pixel+LarghezzaImg*99
         else:
-            img.pixels[c]=color(data1,data2,data3)
-            c+=1
+            #passo al lixel successivo
+            img.pixels[pixel]=color(data1,data2,data3)
+            pixel+=1
             
     #Aggiorno l'immagine con i pixel nuovi
     img.updatePixels()
@@ -51,6 +55,6 @@ def creaImg():
     image(img,0,0)
     
     #Salvo l'immagine
-    save("DivinaCommedia.tiff")
-    print(c)
+    save("Out.tiff")
+    print(pixel)
     
