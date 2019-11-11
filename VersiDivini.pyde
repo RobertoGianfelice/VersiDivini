@@ -1,6 +1,7 @@
 
-LarghezzaImg=400
+LarghezzaImg=500
 AltezzaImg=500
+dimTessera=50
 
 #Creo immagine vuote
 img=createImage(LarghezzaImg,AltezzaImg,RGB)
@@ -34,20 +35,34 @@ def creaImg():
 
         #Creo il pixel        
         if (patchwork) :
-            for i in range(100):
-                #per 100 righe immagine
-                for j in range(100):
-                    #per 100 colonne immagine
+            for i in range(50):
+                #per dimTessera righe immagine
+                for j in range(dimTessera):
+                    #per dimTessera colonne immagine
                     img.pixels[pixel+j+(LarghezzaImg*i)]=color(data1,data2,data3)
-            pixel=pixel+100
+            pixel=pixel+dimTessera
             if (pixel%LarghezzaImg==0):
-                #se ho finito una riga di patchwork, il prossimo quadrato va posizionato sotto le 100 righe pixel
-                pixel=pixel+LarghezzaImg*99
+                #se ho finito una riga di patchwork, il prossimo quadrato va posizionato sotto le dimTessera righe pixel
+                pixel=pixel+LarghezzaImg*(dimTessera-1)
         else:
             #passo al lixel successivo
             img.pixels[pixel]=color(data1,data2,data3)
             pixel+=1
             
+    if (patchwork) :
+        # Completo l'ultima linea con quadrati neri
+        while ((pixel/dimTessera)%LarghezzaImg):
+            for i in range(50):
+                #per dimTessera righe immagine
+                for j in range(dimTessera):
+                    #per dimTessera colonne immagine
+                    img.pixels[pixel+j+(LarghezzaImg*i)]=color(0,0,0)
+            pixel=pixel+dimTessera
+            if (pixel%LarghezzaImg==0):
+                #se ho finito una riga di patchwork, il prossimo quadrato va posizionato sotto le dimTessera righe pixel
+                pixel=pixel+LarghezzaImg*(dimTessera-1)
+
+                
     #Aggiorno l'immagine con i pixel nuovi
     img.updatePixels()
     
