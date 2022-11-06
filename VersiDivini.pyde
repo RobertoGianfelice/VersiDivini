@@ -35,7 +35,7 @@ def creaImg():
 
         #Creo il pixel        
         if (patchwork) :
-            for i in range(50):
+            for i in range(dimTessera):
                 #per dimTessera righe immagine
                 for j in range(dimTessera):
                     #per dimTessera colonne immagine
