@@ -1,7 +1,6 @@
-
 LarghezzaImg=500
 AltezzaImg=500
-dimTessera=50
+dimTessera=1
 
 #Creo immagine vuote
 img=createImage(LarghezzaImg,AltezzaImg,RGB)
@@ -11,11 +10,12 @@ img.loadPixels()
 
 def setup():
     size(LarghezzaImg,AltezzaImg)
-    creaImg()
+    #creaImg()
+    decode()
  
 def creaImg():
     
-    patchwork=True
+    patchwork=False
     #Apro file di input
     input = createInput("Input");
     content = ""
@@ -68,8 +68,28 @@ def creaImg():
     
     #Visualizzo l'immagine
     image(img,0,0)
-    
     #Salvo l'immagine
     save("Out.tiff")
     print(pixel)
     
+def decode():
+    LarghezzaImg=500
+    AltezzaImg=500
+    dimTessera=1
+    
+
+    size(LarghezzaImg,AltezzaImg)
+    testo=loadImage("Out.tiff")
+    testo.loadPixels()
+    #caratteriDaDec=testo.width*testo.height
+    caratteriDaDec=2000
+    rigo=""
+
+    for x in range(caratteriDaDec):
+        if (x%100==0):
+            print(rigo)
+            rigo=""
+        r=red(testo.pixels[x])
+        g=green(testo.pixels[x])
+        b=blue(testo.pixels[x])
+        rigo+=chr(int(r))+ chr(int(g))+ chr(int(b))
